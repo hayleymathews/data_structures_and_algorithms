@@ -5,6 +5,10 @@ from stack import Stack
 def parentheses_checker(symbols):
     """
     checks if each opened parentheses/bracket gets closed O(n)
+    >>> parentheses_checker('{{([][])}()}')
+    True
+    >>> parentheses_checker('[{()]')
+    False
     """
     stack = Stack()
     index = 0
@@ -26,10 +30,11 @@ def parentheses_checker(symbols):
 def matches(open, close):
     """
     checks that opening and closing type match O(1)
+    >>> matches('[',']')
+    True
+    >>> matches('{',')')
+    False
     """
     openers = "([{"
     closers = ")]}"
     return openers.index(open) == closers.index(close)
-
-print(parentheses_checker('{{([][])}()}'))
-print(parentheses_checker('[{()]'))

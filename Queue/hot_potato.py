@@ -4,6 +4,8 @@ from queue import Queue
 def hot_potato(names, number):
     """
     cycle around Queue playing hot potato
+    >>> hot_potato(["Bill", "David", "Susan", "Jane", "Kent", "Brad"], 7)
+    'Susan'
     """
     queue = Queue()
     for name in names:
@@ -13,5 +15,3 @@ def hot_potato(names, number):
             queue.enqueue(queue.dequeue())
         queue.dequeue()
     return queue.dequeue()
-
-print(hot_potato(["Bill", "David", "Susan", "Jane", "Kent", "Brad"], 7))
