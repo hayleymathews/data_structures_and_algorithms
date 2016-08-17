@@ -12,7 +12,7 @@ class Deque():
         return len(self.items)
 
     def __str__(self):
-        return str(self.items)
+        return "Deque:" + str(self.items)
 
     def is_empty(self):
         """
