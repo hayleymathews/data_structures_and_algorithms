@@ -56,7 +56,7 @@ class Node:
 
 class BinarySearchTree:
     """
-    implmenting ADT Binary Search Tree
+    implementing ADT Binary Search Tree
     """
     def __init__(self):
         self.root = None
