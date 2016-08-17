@@ -10,7 +10,10 @@ class BinaryTree:
         self.right_child = None
 
     def insert_left(self, node):
-        if self.left_child == None:
+        """
+        insert node to left O(n)
+        """
+        if self.left_child is None:
             self.left_child = BinaryTree(node)
         else:
             tree = BinaryTree(node)
@@ -18,7 +21,10 @@ class BinaryTree:
             self.left_child = tree
 
     def insert_right(self, node):
-        if self.right_child == None:
+        """
+        insert node to right O(n)
+        """
+        if self.right_child is None:
             self.right_child = BinaryTree(node)
         else:
             tree = BinaryTree(node)
@@ -26,13 +32,25 @@ class BinaryTree:
             self.right_child = tree
 
     def get_left_child(self):
+        """
+        get left child O(1)
+        """
         return self.left_child
 
     def get_right_child(self):
+        """
+        get right child O(1)
+        """
         return self.right_child
 
     def set_root(self, root):
+        """
+        set root of tree O(1)
+        """
         self.root = root
 
     def get_root(self):
+        """
+        get root of tree O(1)
+        """
         return self.root

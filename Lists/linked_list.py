@@ -19,7 +19,7 @@ class LinkedList:
 
     def __iter__(self):
         head = self.head
-        while head != None:
+        while head is not None:
             yield head.value
             head = head.next
 
@@ -40,7 +40,7 @@ class LinkedList:
         """
         current = self.head
         previous = None
-        while current != None:
+        while current is not None:
             if current.value == value:
                 if previous is None:
                     self.head = self.head.next
