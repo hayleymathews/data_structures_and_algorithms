@@ -12,7 +12,7 @@ def palindrome_checker(string):
     deque = Deque()
 
     for character in string.replace(" ", ""):
-        deque.add_rear(character)
+        deque.add_front(character)
 
     equal = True
 
