@@ -12,6 +12,9 @@ class Stack:
         return "Stack: " + str(self.items)
 
     def __len__(self):
+        """
+        get length of Stack O(1)
+        """
         return len(self.items)
 
     def is_empty(self):

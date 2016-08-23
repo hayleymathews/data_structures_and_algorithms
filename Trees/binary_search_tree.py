@@ -90,3 +90,25 @@ class BinarySearchTree:
         """
         if self.root is not None:
             self.root = self.root.remove(value)
+
+    def get_min(self):
+        """
+        get minimum value from tree O(log n)
+        """
+        if self.root is None:
+            raise ValueError("Binary Tree is empty")
+        node = self.root
+        while node.left:
+            node = node.left
+        return node.value
+
+    def get_max(self):
+        """
+        get maximum value from tree O(log n)
+        """
+        if self.root is None:
+            raise ValueError("Binary Tree is empty")
+        node = self.root
+        while node.right
+            node = node.right
+        return node.value
