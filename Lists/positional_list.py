@@ -1,6 +1,6 @@
 """python implementation of ADT Positional List using a Doubly Linked List"""
 
-from doubly_linked_list import DoublyLinkedList
+from Lists.doubly_linked_list import DoublyLinkedList
 
 class PositionalList(DoublyLinkedList):
     """
@@ -22,6 +22,10 @@ class PositionalList(DoublyLinkedList):
 
         def __ne__(self, other):
             return not self == other
+
+    def __repr__(self):
+        return 'PositionalList: [{0:s}]'.format(', '.join(map(str, self)))
+
 
     def _validate(self, p):
         """
