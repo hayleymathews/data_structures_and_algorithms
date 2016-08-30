@@ -119,25 +119,3 @@ class LinkedList(List):
             previous = current
             current = current.next
         return False
-
-    def find_nth_node_from_end(self, n):
-        """
-        find and return node that is n elements from end of list
-        """
-        if n < 0:
-            return None
-        temp = self.head
-        count = 0
-        # move temp n spaces from head
-        while count < n and temp != None:
-            temp = temp.next
-            count += 1
-        if temp == None:
-            return None
-        # set nth element to head
-        # move nth and temp to next until end of list reached
-        nth = self.head
-        while temp.next != None:
-            temp = temp.next
-            nth = nth.next
-        return nth
