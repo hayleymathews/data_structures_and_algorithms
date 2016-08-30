@@ -1,6 +1,6 @@
 """ convert base of number """
 
-from stack import Stack
+from Stacks.array_stack import ArrayStack
 
 def convert_base(number, base):
     """
@@ -10,7 +10,7 @@ def convert_base(number, base):
     """
     digits = "0123456789ABCDEF"
 
-    stack = Stack()
+    stack = ArrayStack()
 
     while number > 0:
         remainder = number % base

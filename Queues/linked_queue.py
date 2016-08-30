@@ -37,6 +37,9 @@ class LinkedQueue(Queue):
         return 'LinkedQueue: [{0:s}]'.format(', '.join(map(str, self)))
 
     def is_empty(self):
+        """
+        check if Queue is empty O(1)
+        """
         return self.size == 0
 
     def peek(self):

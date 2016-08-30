@@ -101,7 +101,7 @@ class DoublyLinkedList(List):
         predecessor = node.prev
         successor = node.next
         predecessor.next = successor
-        successor.prev = prev
+        successor.prev = predecessor
         self.size -= 1
         answer = node.value
         node.prev = node.next = node.value = None

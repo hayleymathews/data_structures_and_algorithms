@@ -1,5 +1,5 @@
 """example using Deque to check is string is a palindrome"""
-from deque import Deque
+from Deques.array_deque import ArrayDeque
 
 def palindrome_checker(string):
     """
@@ -9,16 +9,16 @@ def palindrome_checker(string):
     >>> palindrome_checker('moon')
     False
     """
-    deque = Deque()
+    deque = ArrayDeque()
 
     for character in string.replace(" ", ""):
-        deque.add_front(character)
+        deque.insert_first(character)
 
     equal = True
 
     while len(deque) > 1 and equal:
-        first = deque.remove_front()
-        last = deque.remove_rear()
+        first = deque.delete_first()
+        last = deque.delete_last()
         if first != last:
             equal = False
     return equal

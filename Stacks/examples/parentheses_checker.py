@@ -1,6 +1,6 @@
 """example using Stack to check if parentheses/brackets are balanced in a string"""
 
-from stack import Stack
+from Stacks.array_stack import ArrayStack
 
 def parentheses_checker(symbols):
     """
@@ -10,7 +10,7 @@ def parentheses_checker(symbols):
     >>> parentheses_checker('[{()]')
     False
     """
-    stack = Stack()
+    stack = ArrayStack()
     index = 0
     balanced = True
     while index < len(symbols) and balanced:

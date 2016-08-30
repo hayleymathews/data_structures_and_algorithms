@@ -33,12 +33,12 @@ class ArrayQueue(Queue):
 
     def enqueue(self, item):
         """
-        add item to bottom of Queue O(n)
+        add item to bottom of Queue O(1)
         """
-        self.items.insert(0, item)
+        self.items.append(item)
 
     def dequeue(self):
         """
-        remove item from top of Queue O(1)
+        remove item from top of Queue O(n)
         """
-        return self.items.pop()
+        return self.items.pop(0)

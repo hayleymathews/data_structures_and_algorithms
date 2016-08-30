@@ -1,11 +1,24 @@
 """python implementaton of ADT Deque using Doubly Linked List"""
 
+from Deques.deque_abstract import Deque
 from Lists.doubly_linked_list import DoublyLinkedList
 
-class LinkedDeque(DoublyLinkedList):
+class LinkedDeque(Deque, DoublyLinkedList):
     """
     implementing Dequq with a doubly linked list
     """
+
+    def __iter__(self):
+        return DoublyLinkedList.__iter__(self)
+
+    def __repr__(self):
+        if self.is_empty():
+            return 'LinkedDeque: []'
+        return 'LinkedDeque: [{0:s}]'.format(', '.join(map(str, self)))
+
+    def is_empty(self):
+        return DoublyLinkedList.is_empty(self)
+
     def peek(self):
         """
         return element at front of Deque O(1)
