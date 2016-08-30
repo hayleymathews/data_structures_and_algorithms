@@ -121,6 +121,9 @@ class LinkedList(List):
         return False
 
     def find_nth_node_from_end(self, n):
+        """
+        find and return node that is n elements from end of list
+        """
         if n < 0:
             return None
         temp = self.head

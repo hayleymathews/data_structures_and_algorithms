@@ -27,6 +27,9 @@ class DoublyLinkedList(List):
             self.prepend(_)
 
     def __len__(self):
+        """
+        return length of list O(1)
+        """
         return self.size
 
     def __iter__(self):
@@ -83,7 +86,7 @@ class DoublyLinkedList(List):
 
     def insert_between(self, value, predecessor, successor):
         """
-        add element between two existing nodes and return new node
+        add element between two existing nodes and return new node O(1)
         """
         new = self.Node(value, predecessor, successor)
         predecessor.next = new
@@ -93,7 +96,7 @@ class DoublyLinkedList(List):
 
     def delete_node(self, node):
         """
-        delete nonsentinel node from list and return it
+        delete nonsentinel node from list and return it O(n)
         """
         predecessor = node.prev
         successor = node.next
