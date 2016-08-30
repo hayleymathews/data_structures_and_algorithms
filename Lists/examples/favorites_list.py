@@ -1,6 +1,6 @@
 """example with Positional List, making a list of favorites"""
 
-from Lists.positional_list import PositionalList
+from Lists.examples.positional_list import PositionalList
 
 class FavoritesList:
     """
