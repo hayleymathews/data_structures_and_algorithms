@@ -1,6 +1,8 @@
 """python implementation of ADT Queue using a Linked List"""
 
-class LinkedQueue:
+from Queues.queue_abstract import Queue
+
+class LinkedQueue(Queue):
     """
     implementing ADT Queue with a singly linked list
     """
@@ -23,6 +25,17 @@ class LinkedQueue:
     def __len__(self):
         return self.size
 
+    def __iter__(self):
+        head = self.head
+        while head is not None:
+            yield head.value
+            head = head.next
+
+    def __repr__(self):
+        if self.head is None:
+            return 'LinkedQueue: []'
+        return 'LinkedQueue: [{0:s}]'.format(', '.join(map(str, self)))
+
     def is_empty(self):
         return self.size == 0
 
@@ -36,7 +49,7 @@ class LinkedQueue:
 
     def dequeue(self):
         """
-        remove element at front of Queue O()
+        remove element at front of Queue O(1)
         """
         if self.is_empty():
             raise Exception('Queue is empty')

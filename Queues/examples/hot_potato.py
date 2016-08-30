@@ -1,5 +1,6 @@
 """play hot potato game with Queue"""
-from queue import Queue
+
+from Queues.array_queue import ArrayQueue
 
 def hot_potato(names, number):
     """
@@ -7,7 +8,7 @@ def hot_potato(names, number):
     >>> hot_potato(["Bill", "David", "Susan", "Jane", "Kent", "Brad"], 7)
     'Susan'
     """
-    queue = Queue()
+    queue = ArrayQueue()
     for name in names:
         queue.enqueue(name)
     while len(queue) > 1:

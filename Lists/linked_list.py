@@ -87,7 +87,7 @@ class LinkedList(List):
         """
         insert value at position O(n)
         """
-        if position > self.length or position < 0:
+        if position > self.size or position < 0:
             raise Exception("invalid position")
         if position == 0:
             self.prepend(value)

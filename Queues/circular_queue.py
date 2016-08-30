@@ -1,7 +1,9 @@
 """python implementation of a circular Queue for round robin
 scheduling using circularly linked list"""
 
-class CircularQueue:
+from Queues.queue_abstract import Queue
+
+class CircularQueue(Queue):
     """
     implementing a Queue using a circularly linked list
     """
@@ -34,7 +36,7 @@ class CircularQueue:
         """
         if self.is_empty():
             raise Exception("Queue is empty")
-        head = sef.tail.next
+        head = self.tail.next
         return head.value
 
     def dequeue(self):
@@ -62,7 +64,7 @@ class CircularQueue:
             new.next = self.tail.next
             self.tail.next = new
         self.tail = new
-        self.soze += 1
+        self.size += 1
 
     def rotate(self):
         """

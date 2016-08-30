@@ -1,11 +1,16 @@
 """abstract class for ADT List"""
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 class List(ABC):
     """
     abstract class representing List
     """
+
+    @abstractmethod
+    def __init__(self):
+        self.head = None
+        self.size = 0
 
     @abstractmethod
     def is_empty(self):
@@ -22,14 +27,14 @@ class List(ABC):
         pass
 
     @abstractmethod
-    def prepend(self):
+    def prepend(self, value):
         """
         add element to beginning of list
         """
         pass
 
     @abstractmethod
-    def append(self):
+    def append(self, value):
         """
         add element to end of list
         """
@@ -62,7 +67,7 @@ class List(ABC):
         while count < n and temp != None:
             temp = temp.next
             count += 1
-        if temp == None:
+        if temp is None:
             return None
         # set nth element to head
         # move nth and temp to next until end of list reached
@@ -78,11 +83,11 @@ class List(ABC):
         """
         fast = self.head
         slow = self.head
-        while (fast and slow):
+        while fast and slow:
             fast = fast.next
             if fast == slow:
                 return True
-            if fast == None:
+            if fast is None:
                 return False
             fast = fast.next
             if fast == slow:
@@ -128,4 +133,4 @@ class List(ABC):
         while slow is not fast:
             slow = slow.next
             loop_length += 1
-        return loop_length      
+        return loop_length

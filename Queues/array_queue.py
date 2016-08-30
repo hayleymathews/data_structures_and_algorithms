@@ -1,7 +1,9 @@
 """python implementation of ADT Queue
 with python list (which is really a dynamic array)"""
 
-class Queue:
+from Queues.queue_abstract import Queue
+
+class ArrayQueue(Queue):
     """
     implementing ADT Queue
     """
@@ -13,6 +15,15 @@ class Queue:
 
     def __len__(self):
         return len(self.items)
+
+    def __iter__(self):
+        for item in self.items:
+            yield item
+
+    def __repr__(self):
+        if self.is_empty():
+            return 'ArrayQueue: []'
+        return 'ArrayQueue: [{0:s}]'.format(', '.join(map(str, self)))
 
     def is_empty(self):
         """
