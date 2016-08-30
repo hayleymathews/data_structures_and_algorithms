@@ -76,6 +76,8 @@ class CircularLinkedList(List):
         """
         remove element at back of list O(n)
         """
+        if self.head is None:
+            raise Exception("Empty list")
         current = self.head
         previous = self.head
         while current.next is not self.head:
