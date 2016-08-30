@@ -8,6 +8,20 @@ class Stack(ABC):
     """
 
     @abstractmethod
+    def __iter__(self):
+        """
+        iterate through Stack
+        """
+        pass
+
+    @abstractmethod
+    def __repr__(self):
+        """
+        representation of Stack
+        """
+        pass
+
+    @abstractmethod
     def is_empty(self):
         """
         check if stack is empty

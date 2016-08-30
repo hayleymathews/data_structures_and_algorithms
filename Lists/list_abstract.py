@@ -13,6 +13,20 @@ class List(ABC):
         self.size = 0
 
     @abstractmethod
+    def __iter__(self):
+        """
+        iterate through List
+        """
+        pass
+
+    @abstractmethod
+    def __repr__(self):
+        """
+        representation of List
+        """
+        pass
+
+    @abstractmethod
     def is_empty(self):
         """
         check if list is empty

@@ -26,6 +26,25 @@ class CircularLinkedList(List):
         """
         return self.size
 
+    def __iter__(self):
+        """
+        TODO: unfuck this up
+        """
+        if self.size == 0:
+            return None
+        if self.size < 2:
+            yield self.head.value
+        else:
+            current = self.head
+            for x in range(self.size):
+                yield current.value
+                current = current.next
+
+    def __repr__(self):
+        if self.head is None:
+            return 'CircularLinkedList: []'
+        return 'CircularLinkedList: [{0:s}]'.format(', '.join(map(str, self)))
+
     def is_empty(self):
         """
         check if circular linked list is empty O(1)
@@ -51,14 +70,20 @@ class CircularLinkedList(List):
     def append(self, value):
         """
         add element to end of list O(n)
+        TODO: unfuck this up
         """
-        current = self.head
-        previous = self.head
-        while current.next is not self.head:
-            previous = current
-            current = current.next
-        new_node = self.Node(value, self.head)
-        previous.next = new_node
+        new_node = self.Node(value, None)
+        if self.head.value is None:
+            new_node.next = new_node
+            self.head = new_node
+        else:
+            current = self.head
+            previous = self.head
+            while current.next is not self.head:
+                previous = current
+                current = current.next
+            new_node.next = self.head
+            previous.next = new_node
         self.size += 1
 
     def delete_first(self):

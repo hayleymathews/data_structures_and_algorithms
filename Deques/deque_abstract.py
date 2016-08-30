@@ -8,6 +8,20 @@ class Deque(ABC):
     """
 
     @abstractmethod
+    def __iter__(self):
+        """
+        iterate through Deque
+        """
+        pass
+
+    @abstractmethod
+    def __repr__(self):
+        """
+        representation of Deque
+        """
+        pass
+
+    @abstractmethod
     def is_empty(self):
         """
         check if deque is empty

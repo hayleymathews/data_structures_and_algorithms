@@ -13,9 +13,6 @@ class ArrayDeque(Deque):
     def __len__(self):
         return len(self.items)
 
-    def __str__(self):
-        return "Deque:" + str(self.items)
-
     def __iter__(self):
         for item in self.items:
             yield item
