@@ -148,3 +148,19 @@ class List(ABC):
             slow = slow.next
             loop_length += 1
         return loop_length
+
+    def find_middle_node(self):
+        """
+        find middle node in list O(n)
+        """
+        slow = self.head
+        fast = self.head
+        while fast is not None:
+            fast = fast.next
+            if fast is None:
+                retuen slow
+            fast = fast.next
+            slow = slow.next
+        return slow
+
+              

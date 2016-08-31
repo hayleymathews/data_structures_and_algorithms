@@ -119,3 +119,16 @@ class LinkedList(List):
             previous = current
             current = current.next
         return False
+
+    def reverse(self):
+        """
+        reverse list O(n)
+        """
+        last = None
+        current = self.head
+        while curent is not None:
+            next_node = current.next
+            current.next = last
+            last = current
+            current = next
+        self.head = last
