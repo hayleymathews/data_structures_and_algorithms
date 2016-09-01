@@ -109,6 +109,6 @@ class BinarySearchTree:
         if self.root is None:
             raise ValueError("Binary Tree is empty")
         node = self.root
-        while node.right
+        while node.right:
             node = node.right
         return node.value
