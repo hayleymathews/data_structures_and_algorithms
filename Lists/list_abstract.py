@@ -158,9 +158,7 @@ class List(ABC):
         while fast is not None:
             fast = fast.next
             if fast is None:
-                retuen slow
+                return slow
             fast = fast.next
             slow = slow.next
         return slow
-
-              
