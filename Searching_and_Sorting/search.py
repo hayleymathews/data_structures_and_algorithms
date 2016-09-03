@@ -1,6 +1,8 @@
 """python implementation of basic search algorithms
 linear search and binary search, """
 
+import collections
+
 class Search:
     """
     various searches
@@ -11,11 +13,13 @@ class Search:
         iterate through input values looking for target O(n)
         note: the pythonic way to do linear search is to use 'in' operator
         """
-        # assert iterable, "input is not iterable"
-        for value in values:
-            if value == target:
-                return True
-        return False
+        try:
+            for value in values:
+                if value == target:
+                    return True
+            return False
+        except TypeError:
+            print("input is not iterable")
 
     def sorted_linear_search(values, target):
         """
