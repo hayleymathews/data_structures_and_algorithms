@@ -1,6 +1,6 @@
 """python implementation of ADT Priority Queue with an unsorted list"""
 
-from Queues.priority_queue_abstract import PriorityQueue
+from Queues._priority_queue_abstract import PriorityQueue
 from Lists.positional_list import PositionalList
 
 class UnsortedPriorityQueue(PriorityQueue):
@@ -48,4 +48,4 @@ class UnsortedPriorityQueue(PriorityQueue):
             if walk.element() < small.element():
                 small = walk
             walk = self._data.after(walk)
-        return small    
+        return small

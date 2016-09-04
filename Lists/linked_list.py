@@ -1,6 +1,6 @@
 """python implementation of ADT linked list"""
 
-from Lists.list_abstract import List
+from Lists._list_abstract import List
 
 class LinkedList(List):
     """

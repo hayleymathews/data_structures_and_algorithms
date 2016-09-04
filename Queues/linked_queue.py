@@ -1,6 +1,6 @@
 """python implementation of ADT Queue using a Linked List"""
 
-from Queues.queue_abstract import Queue
+from Queues._queue_abstract import Queue
 
 class LinkedQueue(Queue):
     """

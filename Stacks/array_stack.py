@@ -8,7 +8,7 @@ to make the interface match with the LinkedStack class the iter method cheats
 and reverses the list so that it doesn't appear upside down
 """
 
-from Stacks.stack_abstract import Stack
+from Stacks._stack_abstract import Stack
 
 class ArrayStack(Stack):
     """

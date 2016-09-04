@@ -1,6 +1,6 @@
 """python implementation of abstract class for ADT Binary Tree"""
 
-from Trees.tree_abstract import Tree
+from Trees._tree_abstract import Tree
 
 class BinaryTree(Tree):
     """

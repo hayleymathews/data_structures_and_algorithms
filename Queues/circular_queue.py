@@ -1,7 +1,7 @@
 """python implementation of a circular Queue for round robin
 scheduling using circularly linked list"""
 
-from Queues.queue_abstract import Queue
+from Queues._queue_abstract import Queue
 
 class CircularQueue(Queue):
     """

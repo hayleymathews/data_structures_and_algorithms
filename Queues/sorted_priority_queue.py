@@ -1,6 +1,6 @@
 """python implementation of ADT Priority Queue with a sorted list"""
 
-from Queues.priority_queue_abstract import PriorityQueue
+from Queues._priority_queue_abstract import PriorityQueue
 from Lists.positional_list import PositionalList
 
 class SortedPriorityQueue(PriorityQueue):

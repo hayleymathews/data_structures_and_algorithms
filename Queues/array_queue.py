@@ -1,7 +1,7 @@
 """python implementation of ADT Queue
 with python list (which is really a dynamic array)"""
 
-from Queues.queue_abstract import Queue
+from Queues._queue_abstract import Queue
 
 class ArrayQueue(Queue):
     """

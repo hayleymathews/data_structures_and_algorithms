@@ -1,7 +1,7 @@
 """python implementation of ADT Linked Binary Tree
 use abstract Binary Tree class"""
 
-from Trees.binary_tree_abstract import BinaryTree
+from Trees._binary_tree_abstract import BinaryTree
 
 class LinkedBinaryTree(BinaryTree):
     """
@@ -186,4 +186,3 @@ class LinkedBinaryTree(BinaryTree):
             node._right = t2._root
             t2._root = None
             t2._size = 0
-            

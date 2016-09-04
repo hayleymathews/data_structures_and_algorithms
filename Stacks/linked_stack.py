@@ -1,6 +1,6 @@
 """python implementation of ADT Stack using a Linked List"""
 
-from Stacks.stack_abstract import Stack
+from Stacks._stack_abstract import Stack
 
 class LinkedStack(Stack):
     """
@@ -32,7 +32,7 @@ class LinkedStack(Stack):
     def __repr__(self):
         if self.head is None:
             return 'LinkedStack: []'
-        return 'LinkedStack: [{0:s}]'.format(', '.join(map(str, self)))    
+        return 'LinkedStack: [{0:s}]'.format(', '.join(map(str, self)))
 
     def is_empty(self):
         """

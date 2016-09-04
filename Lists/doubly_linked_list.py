@@ -1,6 +1,6 @@
 """python implementation of ADT Doubly Linked List"""
 
-from Lists.list_abstract import List
+from Lists._list_abstract import List
 
 class DoublyLinkedList(List):
     """
