@@ -1,7 +1,7 @@
 """python implementation of ADT Dynamic Array"""
 
 import ctypes
-from Arrays.array_abstract import Array
+from Arrays._array_abstract import Array
 
 class DynamicArray(Array):
     """
@@ -39,7 +39,7 @@ class DynamicArray(Array):
         """
         if not 0 <= index < self.size:
             raise IndexError('invalid index')
-        else:    
+        else:
             self.values[index] = value
 
     def append(self, item):

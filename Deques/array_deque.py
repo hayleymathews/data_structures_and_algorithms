@@ -1,7 +1,7 @@
 """python implementation of ADT Deque
 with python list (which is really a dynamic array)"""
 
-from Deques.deque_abstract import Deque
+from Deques._deque_abstract import Deque
 
 class ArrayDeque(Deque):
     """

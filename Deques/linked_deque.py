@@ -1,6 +1,6 @@
 """python implementaton of ADT Deque using Doubly Linked List"""
 
-from Deques.deque_abstract import Deque
+from Deques._deque_abstract import Deque
 from Lists.doubly_linked_list import DoublyLinkedList
 
 class LinkedDeque(Deque, DoublyLinkedList):

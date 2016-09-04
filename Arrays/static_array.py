@@ -1,7 +1,7 @@
 """python implementation of ADT static array"""
 
 import ctypes
-from Arrays.array_abstract import Array
+from Arrays._array_abstract import Array
 
 class StaticArray(Array):
     """

@@ -1,6 +1,6 @@
 """python implementation of ADT Map using an unordered list"""
 
-from Hashes.map_abstract import Map
+from Hashes._map_abstract import Map
 
 class UnsortedTableMap(Map):
     """
