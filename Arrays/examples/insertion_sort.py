@@ -1,4 +1,7 @@
-""" python implementation of Insertion Sort"""
+""" python implementation of Insertion Sort
+>>> insertion_sort([3, 2, 1])
+[1, 2, 3]
+"""
 
 def insertion_sort(array):
     """
@@ -10,3 +13,4 @@ def insertion_sort(array):
             array[index] = array[index - 1]
             index -= 1
         array[index] = current
+    return array

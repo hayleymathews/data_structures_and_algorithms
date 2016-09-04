@@ -14,6 +14,9 @@ class PositionalList(DoublyLinkedList):
             self.container = container
             self.node = node
 
+        def __repr__(self):
+            return 'Position: ' + str(self.element())
+
         def element(self):
             return self.node.value
 

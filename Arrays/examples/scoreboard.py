@@ -1,5 +1,13 @@
 """example using Array* to make game scoreboard
-* really just Python List which is a Dynamic Array"""
+* really just Python List which is a Dynamic Array
+>>> s = Scoreboard(2)
+>>> s.add(GameEntry('French Stewart', -17000))
+>>> s.add(GameEntry('Sean Connery', -230000))
+>>> s.add(GameEntry('Burt Reynolds', 14))
+>>> s
+(Burt Reynolds, 14)
+(French Stewart, -17000)
+"""
 
 class GameEntry:
     """
@@ -35,7 +43,7 @@ class Scoreboard:
     def __getitem__(self, index):
         return self.board[index]
 
-    def __str__(self):
+    def __repr__(self):
         return '\n'.join(str(self.board[x]) for x in range(self.size))
 
     def add(self, entry):

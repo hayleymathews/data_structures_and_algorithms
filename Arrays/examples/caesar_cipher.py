@@ -1,4 +1,10 @@
-"""python example playing with Arrays to make a cipher"""
+"""python example playing with Arrays to make a cipher
+>>> c = CaesarCipher(2)
+>>> c.encrypt('HELLO')
+'JGNNQ'
+>>> c.decrypt("JGNNQ")
+'HELLO'
+"""
 
 class CaesarCipher:
     """

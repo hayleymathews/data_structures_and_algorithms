@@ -1,7 +1,8 @@
-"""improving move to front for FavoritesList"""
+"""improving move to front for FavoritesList
+"""
 
 from Lists.examples.favorites_list import FavoritesList
-from Lists.examples.positional_list import PositionalList
+from Lists.positional_list import PositionalList
 
 class FavoritesListMTF(FavoritesList):
     """
