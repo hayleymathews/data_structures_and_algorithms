@@ -76,6 +76,10 @@ class UnsortedTableMap(Map):
         """
         return not (self == other)
 
+    def __repr__(self):
+        return 'UnsortedTableMap: [{0:s}]'.format(', '.join(map(str, self)))
+
+
     def get(self, k, d=None):
         """
         return value v for key k if exists, else return default d O(n)

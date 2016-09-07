@@ -11,33 +11,101 @@ class LinkedBinaryTree(BinaryTree):
         """
         class for storing a node
         """
-        __slots__ = '_element', '_parent', '_left', '_right'
+        __slots__ = '_element', '_left', '_right'
 
-        def __init__(self, element, parent=None, left=None, right=None):
+        def __init__(self, element,left=None, right=None):
             self._element = element
-            self._parent = parent
             self._left = left
             self._right = right
 
-    class Position(BinaryTree.Position):
-        """
-        abstraction representing location of a single element
-        """
-        def __init__(self, container, node):
-            self._container = container
-            self._node = node
+        def __repr__(self):
+            return "Node\nelement: {}\nleft: {}\nright: {}".format(self._element,
+                                                                         self._left,
+                                                                         self._right)
 
-        def element(self):
-            """
-            return element stored at Position
-            """
-            return self._node._element
+    def __init__(self):
+        self._root = None
+        self._size = 0
 
-        def __eq__(self, other):
-            """
-            return True if other is a Position representing same location
-            """
-            return type(other) is type(self) and other._node is self._node
+    def __len__(self):
+        return self._size
+
+    def root(self):
+        """
+        return the root Node of the tree or None if tree is empty O(1)
+        """
+        if self._root:
+            return self._root
+        else:
+            return None
+
+    # def parent(self, node):
+    #     """
+    #     return node's parent or None if p is root O(1)
+    #     """
+    #     node = self._validate(p)
+    #     return self._make_position(node._parent)
+
+    def left(self, node):
+        """
+        return node's left child or None if no left child O(1)
+        """
+        if node._left:
+            return node._left
+        else:
+            return None
+
+    def right(self, p):
+        """
+        return Position of p's right child or None if no right child O(1)
+        """
+        if
+        node = self._validate(p)
+        return self._make_position(node._right)
+
+    def add_root(self, e):
+        """
+        place element e at root of empty tree and return new Position O(1)
+        """
+        if self._root is not None:
+            raise ValueError('root exists')
+        self._size = 1
+        self._root = self._Node(e)
+        self.Position(self, self._root)
+
+    def add_left(self, p, e):
+        """
+        create a new left child for Position p storing element e O(1)
+        """
+        node = self._validate(p)
+        if node._left is not None:
+            raise ValueError("left child exists")
+        self._size += 1
+        node._left = self._Node(e, node)
+        return self._make_position(node._left)
+
+    def add_right(self, p, e):
+        """
+        create a new right child for Position p storing element e O(1)
+        """
+        node = self._validate(p)
+        if node._right is not None:
+            raise ValueError("right node exists")
+        self._size += 1
+        node._right = self._Node(e, node)
+        return self._make_position(node._right)
+
+    def num_children(self, p):
+        """
+        return number of children of Position p O(1)
+        """
+        node = self._validate(p)
+        count = 0
+        if node._left is not None:
+            count += 1
+        if node._right is not None:
+            count += 1
+        return count
 
     def _validate(self, p):
         """
@@ -56,84 +124,6 @@ class LinkedBinaryTree(BinaryTree):
         return Position instance for given node or None if no node
         """
         return self.Position(self, node) if node is not None else None
-
-    def __init__(self):
-        self._root = None
-        self._size = 0
-
-    def __len__(self):
-        return self._size
-
-    def root(self):
-        """
-        return the root Position of the tree or None if tree is empty O(1)
-        """
-        return self._make_position(self._root)
-
-    def parent(self, p):
-        """
-        return Position of p's parent or None if p is root O(1)
-        """
-        node = self._validate(p)
-        return self._make_position(node._parent)
-
-    def left(self, p):
-        """
-        return Position of p's left child or None if no left child O(1)
-        """
-        node = self._validate(p)
-        return self._make_position(node._left)
-
-    def right(self, p):
-        """
-        return Position of p's right child or None if no right child O(1)
-        """
-        node = self._validate(p)
-        return self._make_position(node._right)
-
-    def num_children(self, p):
-        """
-        return number of children of Position p O(1)
-        """
-        node = self._validate(p)
-        count = 0
-        if node._left is not None:
-            count += 1
-        if node._right is not None:
-            count += 1
-        return count
-
-    def _add_root(self, e):
-        """
-        place element e at root of empty tree and return new Position O(1)
-        """
-        if self._root is not None:
-            raise ValueError('root exists')
-        self._size = 1
-        self._root = self._Node(e)
-        return self._make_position(self._root)
-
-    def _add_left(self, p, e):
-        """
-        create a new left child for Position p storing element e O(1)
-        """
-        node = self._validate(p)
-        if node._left is not None:
-            raise ValueError("left child exists")
-        self._size += 1
-        node._left = self._Node(e, node)
-        return self._make_position(node._left)
-
-    def _add_right(self, p, e):
-        """
-        create a new right child for Position p storing element e O(1)
-        """
-        node = self._validate(p)
-        if node._right is not None:
-            raise ValueError("right node exists")
-        self._size += 1
-        node._right = self._Node(e, node)
-        return self._make_position(node._right)
 
     def _replace(self, p, e):
         """

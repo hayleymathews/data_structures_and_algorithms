@@ -24,13 +24,13 @@ class Map(ABC):
             return self._key == other._key
 
         def __ne__(self, other):
-            return not (self == other)
+            return not self == other
 
         def __lt__(self, other):
             return self._key < other._key
 
     @abstractmethod
-    def __getitem__(self, k, v):
+    def __getitem__(self, k):
         """
         return value v associated with key k
         """
@@ -102,7 +102,7 @@ class Map(ABC):
         pass
 
     @abstractmethod
-    def pop(k, d=None):
+    def pop(self, k, d=None):
         """
         remove and return item associated with key k,
         if k doesn't exist, return default d

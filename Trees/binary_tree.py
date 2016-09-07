@@ -1,5 +1,7 @@
 """python implementation of ADT Binary Tree"""
 
+from Trees._binary_tree_abstract import BinaryTree
+
 class BinaryTree:
     """
     implementing ADT Binary Tree

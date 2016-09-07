@@ -1,27 +1,44 @@
 """python implementation of abstract class for ADT Binary Tree"""
 
+from abc import ABC, abstractmethod
 from Trees._tree_abstract import Tree
 
-class BinaryTree(Tree):
+class BinaryTree(Tree, ABC):
     """
     abstract class representing binary tree structure
     """
 
+    @abstractmethod
     def left(self, p):
         """
         return a Position representing p's left child or None if no left child
         """
-        raise NotImplementedError("must be implemented by subclass")
+        pass
 
+    @abstractmethod
     def right(self, p):
         """
         return a Position representing p's right child or None if no right child
         """
-        raise NotImplementedError("must be implemented by subclass")
+        pass
+
+    @abstractmethod
+    def add_left(self, e):
+        """
+        add Element e as left child
+        """
+        pass
+
+    @abstractmethod
+    def add_right(self, e):
+        """
+        add Element e as right child
+        """
+        pass
 
     def sibling(self, p):
         """
-        return a Position representing p's subling or None if no sibling
+        return a Position representing p's sibling or None if no sibling
         """
         parent = self.parent(p)
         if parent is None:

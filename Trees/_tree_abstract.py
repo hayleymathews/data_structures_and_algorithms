@@ -1,62 +1,61 @@
 """python implementation of abstract class for ADT Tree"""
 
+from abc import ABC, abstractmethod
 from Queues.linked_queue import LinkedQueue
 
-class Tree:
+class Tree(ABC):
     """
     abstract class representing a tree structure
     """
-    class Position:
-        """
-        abstraction representing location of a single element
-        """
-        def element(self):
-            """
-            return element stored at this Position
-            """
-            raise NotImplementedError('must be implemented by subclass')
 
-        def __eq__(self, other):
-            """
-            return True if other Position represents same location
-            """
-            raise NotImplementedError('must be implemented by subclass')
+    def __iter__(self):
+        """
+        generate an iteration of the tree's elements
+        """
+        for p in self.positions():
+            yield p.element()
 
-        def __ne__(self, other):
-            """
-            return True if other does not represent same location
-            """
-            raise NotImplementedError('must be implemented by subclass')
-
-    def root(self):
-        """
-        return Position representing tree's root or None if empty
-        """
-        raise NotImplementedError('must be implemented by subclass')
-
-    def parent(self, p):
-        """
-        return Position representing p's paren of None if p is root
-        """
-        raise NotImplementedError('must be implemented by subclass')
-
-    def num_children(self, p):
-        """
-        return number of children Position p has
-        """
-        raise NotImplementedError('must be implemented by subclass')
-
-    def children(self, p):
-        """
-        generate an iteration of Positions representing p's children
-        """
-        raise NotImplementedError('must be implemented by subclass')
-
+    @abstractmethod
     def __len__(self):
         """
         return total number of elements in tree
         """
-        raise NotImplementedError('must be implemented by subclass')
+        pass
+
+    @abstractmethod
+    def add_root(self, e):
+        """
+        add Element e as tree's root
+        """
+        pass
+
+    @abstractmethod
+    def root(self):
+        """
+        return Position representing tree's root or None if empty
+        """
+        pass
+
+    @abstractmethod
+    def parent(self, p):
+        """
+        return Position representing p's paren of None if p is root
+        """
+        pass
+
+    @abstractmethod
+    def num_children(self, p):
+        """
+        return number of children Position p has
+        """
+        pass
+
+    @abstractmethod
+    def children(self, p):
+        """
+        generate an iteration of Positions representing p's children
+        """
+        pass
 
     def is_root(self, p):
         """
@@ -84,13 +83,6 @@ class Tree:
             return 0
         else:
             return 1 + self.depth(self.parent(p))
-
-    def __iter__(self):
-        """
-        generate an iteration of the tree's elements
-        """
-        for p in self.positions():
-            yield p.element()
 
     def positions(self):
         """
@@ -145,12 +137,10 @@ class Tree:
                 for c in self.children(p):
                     fringe.enqueue(c)
 
-    def preorder_indent(T, p, d):
+    def preorder_indent(self, T, p, d):
         """
         print preorder representation of subtree of T rooted at p at depth d
         """
         print(2*d*' ' + str(p.element()))
         for c in T.children(p):
-            preorder_indent(T, c, d+ 1)
-
-            
+            self.preorder_indent(T, c, d+ 1)
