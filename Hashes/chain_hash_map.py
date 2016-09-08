@@ -6,7 +6,13 @@ from Hashes.unsorted_table_map import UnsortedTableMap
 class ChainHashMap(HashMap):
     """
     implementing hash map with separate chaining for collisions
-    """          
+    """
+
+    def __repr__(self):
+        if len(self) == 0:
+            return "ChainHashMap: "
+        args = ['{}: {}'.format(k, repr(v)) for (k,v) in self.items()]
+        return 'ChainHashMap: {{{}}}'.format(', '.join(args))
 
     def __iter__(self):
         for bucket in self._table:

@@ -142,10 +142,3 @@ class Map(ABC):
         return a set of all key-value pairs
         """
         pass
-
-    @abstractmethod
-    def update(self, other_map):
-        """
-        assign map[k] = v for every k, v pair in other_map
-        """
-        pass

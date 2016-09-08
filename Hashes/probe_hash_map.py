@@ -10,10 +10,10 @@ class ProbeHashMap(HashMap):
     _AVAIL = object()
 
     def __repr__(self):
-        return "ProbeHashMap: [{}]".format()
-                return 'LinkedList: [{0:s}]'.format(', '.join(map(str, self)))
-
-
+        if len(self) == 0:
+            return "ProbeHashMap: "
+        args = ['{}: {}'.format(k, repr(v)) for (k,v) in self.items()]
+        return 'ProbeHashMap: {{{}}}'.format(', '.join(args))
 
     def __iter__(self):
         for j in range(len(self._table)):
@@ -62,5 +62,5 @@ class ProbeHashMap(HashMap):
                 if self._table[j] is None:
                     return (False, first_avail)
             elif k == self._table[j]._key:
-                return (True, k)
+                return (True, j)
             j = (j + 1) % len(self._table)

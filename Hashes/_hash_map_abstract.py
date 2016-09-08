@@ -68,10 +68,8 @@ class HashMap(Map, ABC):
         """
         remove all key-value pairs from map O(n)
         """
-        for bucket in self._table:
-            if bucket is not None:
-                for key in bucket:
-                    del self[key]
+        for key in self.keys():
+            del self[key]
 
     def get(self, k, d=None):
         """
@@ -86,33 +84,21 @@ class HashMap(Map, ABC):
         """
         return all key-value pairs in map O(n)
         """
-        items = []
-        for bucket in self._table:
-            if bucket is not None:
-                for key in bucket:
-                    items.append((key, self[key]))
-        return items
+        return list(zip(self.keys(), self.values()))
 
     def keys(self):
         """
         return all keys in map O(n)
         """
-        keys = []
-        for bucket in self._table:
-            if bucket is not None:
-                for key in bucket:
-                    keys.append(key)
-        return keys
+        return list(self.__iter__())
 
     def values(self):
         """
         return all values in map O(n)
         """
         values = []
-        for bucket in self._table:
-            if bucket is not None:
-                for key in bucket:
-                    values.append(self[key])
+        for key in self.keys():
+            values.append(self[key])
         return values
 
     def pop(self, k, d=None):
@@ -141,13 +127,6 @@ class HashMap(Map, ABC):
         except KeyError:
             self[k] = d
             return d
-
-    def update(self, other):
-        """
-        assign map[k] = v for every k, v pair in other
-        TODO: figure this one out
-        """
-        pass
 
     def _resize(self, c):
         """
