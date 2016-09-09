@@ -77,7 +77,10 @@ class UnsortedTableMap(Map):
         return not (self == other)
 
     def __repr__(self):
-        return 'UnsortedTableMap: [{0:s}]'.format(', '.join(map(str, self)))
+        if len(self) == 0:
+            return "UnsortedTableMap: "
+        args = ['{}: {}'.format(k, repr(v)) for (k,v) in self.items()]
+        return 'UnsortedTableMap: {{{}}}'.format(', '.join(args))
 
 
     def get(self, k, d=None):
