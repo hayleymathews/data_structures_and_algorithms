@@ -8,6 +8,7 @@ class Search:
     various searches
     """
 
+    @staticmethod
     def linear_search(values, target):
         """
         iterate through input values looking for target O(n)
@@ -21,6 +22,7 @@ class Search:
         except TypeError:
             print("input is not iterable")
 
+    @staticmethod
     def sorted_linear_search(values, target):
         """
         iterate through presorted input values looking for target O(n)
@@ -33,12 +35,13 @@ class Search:
             elif value > target:
                 return False
 
+    @staticmethod
     def binary_search(values, target):
         """
         iterate through presorted input values looking for target O(logn)
         """
-        start = 0
-        end = len(values) - 1
+        low = 0
+        high = len(values) - 1
         while low <= high:
             mid_point = (high + low) // 2
             if values[mid_point] == target:

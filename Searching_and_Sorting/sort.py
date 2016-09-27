@@ -70,6 +70,8 @@ class Sort:
     @staticmethod
     def quick_sort(values):
         """
+        pick pivot, put all items greater than pivot in larger, less than in smaller
+        keep splitting until smaller and larger only 1 element, then combine O(nlogn)
         """
         if len(values) > 1:
             pivot = len(values) // 2
