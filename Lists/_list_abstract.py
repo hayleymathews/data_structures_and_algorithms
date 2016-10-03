@@ -40,35 +40,6 @@ class List(ABC):
         """
         pass
 
-    @abstractmethod
-    def prepend(self, value):
-        """
-        add element to beginning of list
-        """
-        pass
-
-    @abstractmethod
-    def append(self, value):
-        """
-        add element to end of list
-        """
-        pass
-
-    @abstractmethod
-    def delete_first(self):
-        """
-        delete element at front of list
-        """
-        pass
-
-
-    @abstractmethod
-    def delete_last(self):
-        """
-        delete element at end of list
-        """
-        pass
-
     def find_nth_node_from_end(self, n):
         """
         find and return node that is n elements from end of list

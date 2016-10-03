@@ -4,8 +4,9 @@ import math
 from random import random
 from functools import total_ordering
 
+from Lists._list_abstract import List
 
-class SkipList():
+class SkipList(List):
     """
     implementing ADT Skip List
     """
@@ -47,6 +48,9 @@ class SkipList():
         return self.size
 
     def __iter__(self):
+        """
+        iterate through values of list O(n)
+        """
         node = self.head.next[0]
         while node.next:
             yield node.value
@@ -68,6 +72,12 @@ class SkipList():
                 index -= node.width[level]
                 node = node.next[level]
         return node.value
+
+    def is_empty(self):
+        """
+        check if list is empty
+        """
+        return self.size == []
 
     def insert(self, value):
         """
