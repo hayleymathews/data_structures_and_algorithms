@@ -3,6 +3,7 @@ python implementation of basic sort algorithms
 """
 
 import random
+import heapq
 
 class Sort:
     """
@@ -43,6 +44,8 @@ class Sort:
     def insertion_sort(values):
         """
         iterate through values and insert value in proper position O(n**2)
+        good for sorting small sequences, n < 50
+        or sequences that are already nearly sorted
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.insertion_sort(values)
         [1, 2, 3, 4, 5]
@@ -55,6 +58,18 @@ class Sort:
         return values
 
     @staticmethod
+    def heap_sort(values):
+        """
+        sort values by creating a heap and then popping from it O(nlogn)
+        good for small to medium sequences that can fit in memory
+        >>> values = [1, 4, 3, 2, 5]
+        >>> Sort.heap_sort(values)
+        [1, 2, 3, 4, 5]
+        """
+        heapq.heapify(values)
+        values[:] = [heapq.heappop(values) for x in range(len(values))]
+
+    @staticmethod
     def merge_sort(values):
         """
         divide list in 2(left, right) until each list is only 1 item long, and thus sorted
@@ -62,6 +77,8 @@ class Sort:
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.merge_sort(values)
         [1, 2, 3, 4, 5]
+        less preferred than heap and quick for arrays that can fit in main memory
+        works best for input in multiple locations
         """
         if len(values) <= 1:
             return values
@@ -90,6 +107,7 @@ class Sort:
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.quick_sort(values)
         [1, 2, 3, 4, 5]
+        faster than heap and merge sort most of the time, however, not stable
         """
         if len(values) > 1:
             pivot = random.randint(0, len(values) - 1)
@@ -116,6 +134,7 @@ class Sort:
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.bucket_sort(values, 6)
         [1, 2, 3, 4, 5]
+        good for arrays with small integer keys, character strings, etc from a discrete range
         """
         if len(values) == 0:
             return values
@@ -136,6 +155,7 @@ class Sort:
         >>> values = [[3, 3], [1, 5], [2, 5], [1, 2], [2, 3], [1, 7], [3, 2], [2, 2]]
         >>> Sort.radix_sort(values, 8)
         [[1, 2], [1, 5], [1, 7], [2, 2], [2, 3], [2, 5], [3, 2], [3, 3]]
+        good for tuples of keys from a discrete range
         """
         if len(values) == 0:
             return values
