@@ -1,5 +1,6 @@
-"""python implementation of basic search algorithms
-linear search and binary search, """
+"""
+python implementation of basic search algorithms
+"""
 
 import collections
 import random
@@ -82,4 +83,4 @@ class Search:
             return pivot
         else:
             j = k - len(smaller) - len(equal)
-            return Search.quick_select(larger)
+            return Search.quick_select(larger, j)
