@@ -41,7 +41,12 @@ class AdjacencyMatrixGraph(Graph):
         return self.size
 
     def __repr__(self):
-        return str(self.matrix)
+        string = ""
+        for vertex in self.vertex_dict:
+            string += "\n" + str(vertex) + ": "
+            index = self.vertex_dict[vertex].index
+            string += str(self.matrix[index])
+        return string
 
     def add_vertex(self, value):
         """

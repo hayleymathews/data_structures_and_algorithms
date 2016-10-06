@@ -90,7 +90,11 @@ class Graph(ABC):
             return self.hash
 
         def __repr__(self):
-            string = "Edge " + str(self.label) + ": " + str(self.here) + " " + str(self.there)
+            string = "Edge"
+            string += " " + str(self.label) if self.label is not None else ""
+            string += ": " + str(self.here)
+            string += " <> " if not self.directed else " > "
+            string += str(self.there)
             return string
 
     @abstractmethod
