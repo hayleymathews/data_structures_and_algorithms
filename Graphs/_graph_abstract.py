@@ -90,12 +90,19 @@ class Graph(ABC):
             return self.hash
 
         def __repr__(self):
-            string = "Edge"
-            string += " " + str(self.label) if self.label is not None else ""
-            string += ": " + str(self.here)
+            string = str(self.label) + ": "if self.label is not None else ""
+            string += str(self.here)
             string += " <> " if not self.directed else " > "
             string += str(self.there)
             return string
+
+    def __init__(self, directed=False):
+        self.size = 0
+        self.edge_count = 0
+        self.directed = directed
+
+    def __len__(self):
+        return self.size
 
     @abstractmethod
     def add_vertex(self, vertex):
@@ -217,13 +224,6 @@ class Graph(ABC):
         pass
 
     @abstractmethod
-    def is_empty(self):
-        """
-        check if Graph is empty
-        """
-        pass
-
-    @abstractmethod
     def clear(self):
         """
         remove all vertices from Graph
@@ -236,3 +236,21 @@ class Graph(ABC):
         check if vertex and other have an edge between them
         """
         pass
+
+    def is_empty(self):
+        """
+        check if Graph is empty
+        """
+        return self.size == 0
+
+    def visitable(self, value):
+        """
+        return all vertices vistable from vertex with value value using DFS
+        """
+        visited, stack = set(), [value]
+        while stack:
+            vertex = stack.pop()
+            if vertex not in visited:
+                visited.add(vertex)
+                stack.extend(set(self.neighbors(vertex)) - visited)
+        return visited - set([value])

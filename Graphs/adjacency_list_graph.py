@@ -57,7 +57,7 @@ class AdjacencyListGraph(Graph):
 
         def adjacent_vertices(self):
             """
-            iterate over adjacent vertices
+            iterate over adjacent vertices O(E)
             """
             for edge in self.adjacencies:
                 if edge.here != self.value:
@@ -66,10 +66,8 @@ class AdjacencyListGraph(Graph):
                     yield edge.there
 
     def __init__(self, vertices=None, edges=None, directed=False):
-        self.directed = directed
+        super().__init__(directed)
         self.vertex_dict = {}
-        self.size = 0
-        self.edge_count = 0
         if vertices:
             for vertex in vertices:
                 self.add_vertex(vertex)
@@ -82,25 +80,82 @@ class AdjacencyListGraph(Graph):
                 else:
                     raise KeyError("Incorrect parameters")
 
-    def __len__(self):
-        return self.size
-
     def __repr__(self):
-        pass
+        string = ""
+        for value in self.vertex_dict:
+            string += "\n" + str(value) + ": "
+            edges = self.vertex_dict[value].adjacencies
+            string += str(edges)
+        return string
+
+    def __iter__(self):
+        """
+        iterate over vertices in Graph O(V)
+        """
+        for vertex in self.vertex_dict:
+            yield vertex
 
     def __contains__(self, value):
         """
-        check if vertex with value value in Graph
+        check if vertex with value value in Graph O(1)
         """
         return value in self.vertex_dict
 
+    def contains_edge(self, here, there):
+        """
+        check if edge from here to there exists O(1)
+        """
+        if here in self and there in self:
+            here_vertex = self.vertex_dict[here]
+            there_vertex = self.vertex_dict[there]
+            if not self.directed:
+                if here not in there_vertex.adjacent_vertices():
+                    return False
+            return there in here_vertex.adjacent_vertices()
+        return False
+
+    def degree(self, value):
+        """
+        return number of vertices adjacent to vertex with value value O(1)
+        """
+        if value in self:
+            return self.vertex_dict[value].degree
+
+    def neighbors(self, value):
+        """
+        return all vertices adjacent to vertex with value value O(E)
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            return vertex.adjacent_vertices()
+
+    def edges(self):
+        """
+        return all edges in Graph O(VE)
+        """
+        return self.Edges(self)
+
+    def adjacent(self, value, other):
+        """
+        check if vertices with value value and other have an edge between them O(E)
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            return other in vertex.adjacenct_vertices()
+
     def add_vertex(self, value):
+        """
+        add vertex with value value to Graph O(1)
+        """
         if value not in self:
             vertex = self.Vertex(value)
             self.vertex_dict[value] = vertex
             self.size += 1
 
     def delete_vertex(self, value):
+        """
+        delete vertex with value value from Graph O(VE)
+        """
         if value in self:
             target = self.vertex_dict[value]
             target.adjacencies = []
@@ -113,12 +168,15 @@ class AdjacencyListGraph(Graph):
 
     def get_vertex(self, value):
         """
-        get vertex with value value
+        get vertex with value value O(1)
         """
         if value in self:
             return self.vertex_dict[value]
 
     def add_edge(self, here, there, label=None):
+        """
+        add edge from here to there to Graph O(1)
+        """
         self.add_vertex(here)
         self.add_vertex(there)
         here_vertex = self.vertex_dict[here]
@@ -130,6 +188,9 @@ class AdjacencyListGraph(Graph):
         self.edge_count += 1
 
     def delete_edge(self, here, there):
+        """
+        delete edge from here to there from graph O(1)
+        """
         if self.contains_edge(here, there):
             here_vertex = self.vertex_dict[here]
             there_vertex = self.vertex_dict[there]
@@ -144,37 +205,77 @@ class AdjacencyListGraph(Graph):
 
     def get_edge(self, here, there):
         """
-        get edge from here to there
+        get edge from here to there 
         """
-        pass
+        if self.contains_edge(here, there):
+            pass
 
-    def degree(self, value):
+    def visit(self, value):
+        """
+        visit vertex with value value O(1)
+        """
         if value in self:
-            return self.vertex_dict[value].degree
+            vertex = self.vertex_dict[value]
+            return vertex.visit()
 
-    def __iter__(self):
-        for vertex in self.vertex_dict:
-            yield vertex
+    def visited(self, value):
+        """
+        check if vertex had been visited O(1)
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            return vertex.visited
 
-    def contains_edge(self, here, there):
+    def visit_edge(self, here, there):
+        """
+        visit edge from here to there
+        """
         if here in self and there in self:
             here_vertex = self.vertex_dict[here]
             there_vertex = self.vertex_dict[there]
-            if not self.directed:
-                if there not in here_vertex.adjacencies:
-                    return False
-            return here in there_vertex.adjacencies
-        return False
+            edge = self.Edge(here_vertex.value, there_vertex.value, directed=self.directed)
+            return edge.visit()
 
-    def adjacent(self, value, other):
-        if value in self:
+    def visited_edge(self, here, there):
+        """
+        check if edge from here to there has been visited
+        """
+        if here in self and there in self:
+            here_vertex = self.vertex_dict[here]
+            there_vertex = self.vertex_dict[there]
+            edge = self.Edge(here_vertex.value, there_vertex.value, directed=self.directed)
+            return edge.visited
+
+    def reset(self):
+        """
+        reset visited flag on all edges and vertices
+        """
+        for value in self.vertex_dict:
             vertex = self.vertex_dict[value]
-            return other in vertex.adjacencies
+            vertex.reset()
+            for edge in vertex.adjacencies:
+                edge.reset()
 
     def clear(self):
+        """
+        clear Graph of contents
+        """
         self.vertex_dict = {}
         self.size = 0
         self.edge_count = 0
 
-    def is_empty(self):
-        return self.size == 0
+    class Edges:
+        """
+        iterable for edges in Graph
+        """
+        def __init__(self, target):
+            self.target = target
+
+        def __iter__(self):
+            for vertex in self.target:
+                for edge in vertex.adjacencies:
+                    if self.target.directed or edge.here is vertex.value:
+                        yield edge
+
+        def __len__(self):
+            return self.target.edge_count()

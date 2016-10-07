@@ -18,10 +18,8 @@ class AdjacencyMatrixGraph(Graph):
             self.index = index
 
     def __init__(self, vertices=None, edges=None, directed=False):
-        self.directed = directed
-        self.size = 0
+        super().__init__(directed)
         self.capacity = 0
-        self.edge_count = 0
         self.matrix = []
         self.vertex_dict = {}
         self.free = set()
@@ -37,16 +35,68 @@ class AdjacencyMatrixGraph(Graph):
                 else:
                     raise KeyError("Incorrect parameters")
 
-    def __len__(self):
-        return self.size
+    def __iter__(self):
+        for vertex in self.vertex_dict:
+            yield vertex
 
     def __repr__(self):
         string = ""
         for vertex in self.vertex_dict:
             string += "\n" + str(vertex) + ": "
             index = self.vertex_dict[vertex].index
-            string += str(self.matrix[index])
+            edges = [x for x in self.matrix[index] if x is not None]
+            string += str(edges)
         return string
+
+    def __contains__(self, value):
+        """
+        check if vertex with value value in Graph
+        """
+        return value in self.vertex_dict
+
+    def contains_edge(self, here, there):
+        """
+        check if edge from here to there in Graph
+        """
+        if here in self and there in self:
+            here_vertex = self.vertex_dict[here]
+            there_vertex = self.vertex_dict[there]
+            return self.matrix[here_vertex.index][there_vertex.index]
+        return False
+
+    def degree(self, value):
+        """
+        return number of vertices adjacent to vertex with value value
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            row = self.matrix[vertex.index]
+            count = len([edge for edge in row if edge is not None])
+            return count
+
+    def neighbors(self, value):
+        """
+        return all vertices adjacent to vertex with value value
+        """
+        return self.Neighbors(self, value)
+
+    def edges(self):
+        """
+        return all edges in Graph
+        """
+        return self.Edges(self)
+
+    def adjacent(self, value, other):
+        """
+        check if vertices with value value and other have an edge between them
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            row = self.matrix[vertex.index]
+            for edge in [edge for edge in row if edge is not None]:
+                if edge.here == other or edge.there == other:
+                    return True
+        return False
 
     def add_vertex(self, value):
         """
@@ -89,6 +139,13 @@ class AdjacencyMatrixGraph(Graph):
         else:
             return "Vertex not in Graph"
 
+    def get_vertex(self, value):
+        """
+        get vertex with value value
+        """
+        if value in self:
+            return self.vertex_dict[value]
+
     def add_edge(self, here, there, label=None):
         """
         add edge from here to there to Graph
@@ -123,13 +180,6 @@ class AdjacencyMatrixGraph(Graph):
         else:
             return "Edge not in Graph"
 
-    def get_vertex(self, value):
-        """
-        get vertex with value value
-        """
-        if value in self:
-            return self.vertex_dict[value]
-
     def get_edge(self, here, there):
         """
         get edge from here to there
@@ -139,22 +189,6 @@ class AdjacencyMatrixGraph(Graph):
             there_vertex = self.vertex_dict[there]
             return self.matrix[here_vertex.index][there_vertex.index]
 
-    def __contains__(self, value):
-        """
-        check if vertex with value value in Graph
-        """
-        return value in self.vertex_dict
-
-    def contains_edge(self, here, there):
-        """
-        check if edge from here to there in Graph
-        """
-        if here in self and there in self:
-            here_vertex = self.vertex_dict[here]
-            there_vertex = self.vertex_dict[there]
-            return self.matrix[here_vertex.index][there_vertex.index]
-        return False
-
     def visit(self, value):
         """
         visit vertex with value value
@@ -162,6 +196,14 @@ class AdjacencyMatrixGraph(Graph):
         if value in self:
             vertex = self.vertex_dict[value]
             return vertex.visit()
+
+    def visited(self, value):
+        """
+        check if vertex had been visited
+        """
+        if value in self:
+            vertex = self.vertex_dict[value]
+            return vertex.visited
 
     def visit_edge(self, here, there):
         """
@@ -171,18 +213,7 @@ class AdjacencyMatrixGraph(Graph):
             here_vertex = self.vertex_dict[here]
             there_vertex = self.vertex_dict[there]
             edge = self.matrix[here_vertex.index][there_vertex.index]
-            # if not self.directed:
-            #     opposite = self.matrix[there_vertex.index][here_vertex.index]
-            #     opposite.visit()
             return edge.visit()
-
-    def visited(self, value):
-        """
-        check if vertex had been visited
-        """
-        if value in self:
-            vertex = self.vertex_dict[value]
-            return vertex.visited()
 
     def visited_edge(self, here, there):
         """
@@ -192,61 +223,18 @@ class AdjacencyMatrixGraph(Graph):
             here_vertex = self.vertex_dict[here]
             there_vertex = self.vertex_dict[there]
             edge = self.matrix[here_vertex.index][there_vertex.index]
-            return edge.visited()
+            return edge.visited
 
     def reset(self):
         """
         reset visited flag on all edges and vertices
         """
-        for vertex in self.vertex_dict:
+        for value in self.vertex_dict:
+            vertex = self.vertex_dict[value]
             vertex.reset()
             row = self.matrix[vertex.index]
             for edge in [e for e in row if e is not None]:
                 edge.reset()
-
-    def is_empty(self):
-        """
-        check if Graph is empty
-        """
-        return self.size == 0
-
-    def __iter__(self):
-        for vertex in self.vertex_dict:
-            yield vertex
-
-    def neighbors(self, value):
-        """
-        return all vertices adjacent to vertex with value value
-        """
-        return self.Neighbors(self, value)
-
-    def visitable(self, value):
-        """
-        return all vertices vistable from vertex with value value using DFS
-        """
-        visited, stack = set(), [value]
-        while stack:
-            vertex = stack.pop()
-            if vertex not in visited:
-                visited.add(vertex)
-                stack.extend(set(self.neighbors(vertex)) - visited)
-        return visited - set([value])
-
-    def edges(self):
-        """
-        return all edges in Graph
-        """
-        return self.Edges(self)
-
-    def degree(self, value):
-        """
-        return number of vertices adjacent to vertex with value value
-        """
-        if value in self:
-            vertex = self.vertex_dict[value]
-            row = self.matrix[vertex.index]
-            count = len([edge for edge in row if edge is not None])
-            return count
 
     def clear(self):
         """
@@ -258,18 +246,6 @@ class AdjacencyMatrixGraph(Graph):
         self.matrix = []
         self.vertex_dict = {}
         self.free = set()
-
-    def adjacent(self, value, other):
-        """
-        check if vertices with value value and other have an edge between them
-        """
-        if value in self:
-            vertex = self.vertex_dict[value]
-            row = self.matrix[vertex.index]
-            for edge in [edge for edge in row if edge is not None]:
-                if edge.here == other or edge.there == other:
-                    return True
-        return False
 
     class Neighbors:
         """
