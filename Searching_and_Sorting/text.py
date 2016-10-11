@@ -89,6 +89,13 @@ class Text:
         return -1
 
     @staticmethod
+    def find_patterns_trie(text, patterns):
+        """
+        find indices of patterns in text using trie data structure
+        """
+        pass
+
+    @staticmethod
     def longest_common_subsequence(text, other):
         """
         find longest common subsequence of two strings O(nm)
@@ -116,3 +123,11 @@ class Text:
             else:
                 m -= 1
         return ''.join(reversed(solution))
+
+    @staticmethod
+    def huffman_encode(text):
+        """
+        encode text to bits where most frequent characters get shortest bit length
+        for text length n and distinct characters d O(n + dlogd)
+        """
+        pass
