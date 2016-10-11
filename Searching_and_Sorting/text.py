@@ -87,3 +87,32 @@ class Text:
             else:
                 j += 1
         return -1
+
+    @staticmethod
+    def longest_common_subsequence(text, other):
+        """
+        find longest common subsequence of two strings O(nm)
+        >>> text, other = 'GTTCCTAATA', 'CGATAATTGAGA'
+        >>> Text.longest_common_subsequence(text, other)
+        'GTTTAA'
+        """
+        n, m = len(text), len(other)
+        longest = [[0] * (m + 1) for x in range(n + 1)]
+        for x in range(n):
+            for y in range(m):
+                if text[x] == other[y]:
+                    longest[x + 1][y + 1] = longest[x][y] + 1
+                else:
+                    longest[x + 1][y + 1] = max(longest[x][y + 1],
+                                                longest[x + 1][y])
+        solution = []
+        while longest[n][m] > 0:
+            if text[n - 1] == other[m - 1]:
+                solution.append(text[n - 1])
+                n -= 1
+                m -= 1
+            elif longest[n - 1][m] >= longest[n][m - 1]:
+                n -= 1
+            else:
+                m -= 1
+        return ''.join(reversed(solution))
