@@ -1,6 +1,7 @@
 """
 python implementations of various text algorithms
 """
+import functools
 
 class Text:
     """
@@ -60,7 +61,7 @@ class Text:
         6
         """
         n, m = len(text), len(pattern)
-        if m == 0:
+        if not text or not pattern:
             return 0
         fail = [0] * m
         j = 1
@@ -123,6 +124,24 @@ class Text:
             else:
                 m -= 1
         return ''.join(reversed(solution))
+
+    @staticmethod
+    @functools.lru_cache(maxsize=None)
+    def memoized_lcs(text, other):
+        """
+        longest common subsequence using memoization and caching O(nm)
+        more overhead for memoization, but does less work than dynamic programming
+        >>> text, other = "GTACGGTTC", "CGATTGGAA"
+        >>> Text.memoized_lcs(text, other)
+        'CGTT'
+        """
+        if not text or not other:
+            return ''
+        if text[0] == other[0]:
+            return text[0] + Text.memoized_lcs(text[1:], other[1:])
+        else:
+            return max(Text.memoized_lcs(text[1:], other),
+                       Text.memoized_lcs(text, other[1:]), key=len)
 
     @staticmethod
     def huffman_encode(text):

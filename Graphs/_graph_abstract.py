@@ -237,6 +237,20 @@ class Graph(ABC):
         """
         pass
 
+    @abstractmethod
+    def breadth_first_search(self):
+        pass
+
+    @abstractmethod
+    def depth_first_search(self):
+        pass
+
+    @abstractmethod
+    def shortest_path(self, edge, other):
+        pass
+
+        
+
     def is_empty(self):
         """
         check if Graph is empty
@@ -254,3 +268,11 @@ class Graph(ABC):
                 visited.add(vertex)
                 stack.extend(set(self.neighbors(vertex)) - visited)
         return visited - set([value])
+
+    def explore(self, value, clear=True):
+        if clear:
+            self.reset()
+        self.visit(value)
+        for neighbor in self.neighbors(value):
+            if not neighbor.visited():
+                self.explore(neighbor, clear=False)
