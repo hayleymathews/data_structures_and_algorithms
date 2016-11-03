@@ -2,6 +2,8 @@
 python implementations of various text algorithms
 """
 import functools
+from collections import Counter
+import heapq
 
 class Text:
     """
@@ -148,5 +150,18 @@ class Text:
         """
         encode text to bits where most frequent characters get shortest bit length
         for text length n and distinct characters d O(n + dlogd)
+        >>> Text.huffman_encode('a man, a plan, a canal, panama')
+        >>> Text.huffman_encode('yashaswita')
         """
-        pass
+        frequencies = Counter(text)
+        heap = [[weight, [symbol, '']] for symbol, weight in frequencies.most_common()]
+        heapq.heapify(heap)
+        while len(heap) > 1:
+            low = heapq.heappop(heap)
+            high = heapq.heappop(heap)
+            for pair in low[1:]:
+                pair[1] = '0' + pair[1]
+            for pair in high[1:]:
+                pair[1] = '1' + pair[1]
+            heapq.heappush(heap, [low[0] + high[0]] + low[1:] + high[1:])
+        return sorted(heapq.heappop(heap)[1:], key=lambda x: (len(x[-1]), x))
