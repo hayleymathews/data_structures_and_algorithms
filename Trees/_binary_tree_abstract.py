@@ -7,6 +7,11 @@ class BinaryTree(Tree, ABC):
     """
     abstract class representing binary tree structure
     """
+    class Node(Tree.Node):
+        def __init__(self, value):
+            super(BinaryTree.Node, self).__init__(value)
+            self.left = None
+            self.right = None
 
     @abstractmethod
     def left(self, p):
@@ -23,16 +28,9 @@ class BinaryTree(Tree, ABC):
         pass
 
     @abstractmethod
-    def add_left(self, e):
+    def add(self, e):
         """
-        add Element e as left child
-        """
-        pass
-
-    @abstractmethod
-    def add_right(self, e):
-        """
-        add Element e as right child
+        add Element e as to Tree
         """
         pass
 

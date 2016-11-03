@@ -7,6 +7,15 @@ class Tree(ABC):
     """
     abstract class representing a tree structure
     """
+    class Node:
+        def __init__(self, value):
+            self.value = value
+
+        def __repr__(self):
+            return "Node: {}".format(self.value)
+
+    def __init__(self):
+        self.root = None
 
     def __iter__(self):
         """
@@ -29,12 +38,11 @@ class Tree(ABC):
         """
         pass
 
-    @abstractmethod
-    def root(self):
+    def get_root(self):
         """
         return Position representing tree's root or None if empty
         """
-        pass
+        return self.root
 
     @abstractmethod
     def parent(self, p):
@@ -61,7 +69,7 @@ class Tree(ABC):
         """
         return True if Position p represents root of tree O(1)
         """
-        return self.root() == p
+        return self.get_root() == p
 
     def is_leaf(self, p):
         """
@@ -95,7 +103,7 @@ class Tree(ABC):
         generate a preorder iteration of positions in the tree
         """
         if not self.is_empty():
-            for p in self._subtree_preorder(self.root()):
+            for p in self._subtree_preorder(self.root):
                 yield p
 
     def _subtree_preorder(self, p):
@@ -112,7 +120,7 @@ class Tree(ABC):
         generate a postorder iteration of positions in the tree
         """
         if not self.is_empty():
-            for p in self._subtree_postorder(self.root()):
+            for p in self._subtree_postorder(self.root):
                 yield p
 
     def _subtree_postorder(self, p):
@@ -130,7 +138,7 @@ class Tree(ABC):
         """
         if not self.is_empty():
             fringe = LinkedQueue()
-            fringe.enqueue(self.root())
+            fringe.enqueue(self.root)
             while not fringe.is_empty():
                 p = fringe.dequeue()
                 yield p
