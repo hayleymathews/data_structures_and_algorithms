@@ -1,6 +1,9 @@
 a"""
 python implementations of various text algorithms
 """
+import functools
+from collections import Counter
+import heapq
 
 class Text:
     """
@@ -60,7 +63,7 @@ class Text:
         6
         """
         n, m = len(text), len(pattern)
-        if m == 0:
+        if not text or not pattern:
             return 0
         fail = [0] * m
         j = 1
@@ -87,6 +90,13 @@ class Text:
             else:
                 j += 1
         return -1
+
+    @staticmethod
+    def find_patterns_trie(text, patterns):
+        """
+        find indices of patterns in text using trie data structure
+        """
+        pass
 
     @staticmethod
     def longest_common_subsequence(text, other):
@@ -116,3 +126,42 @@ class Text:
             else:
                 m -= 1
         return ''.join(reversed(solution))
+
+    @staticmethod
+    @functools.lru_cache(maxsize=None)
+    def memoized_lcs(text, other):
+        """
+        longest common subsequence using memoization and caching O(nm)
+        more overhead for memoization, but does less work than dynamic programming
+        >>> text, other = "GTACGGTTC", "CGATTGGAA"
+        >>> Text.memoized_lcs(text, other)
+        'CGTT'
+        """
+        if not text or not other:
+            return ''
+        if text[0] == other[0]:
+            return text[0] + Text.memoized_lcs(text[1:], other[1:])
+        else:
+            return max(Text.memoized_lcs(text[1:], other),
+                       Text.memoized_lcs(text, other[1:]), key=len)
+
+    @staticmethod
+    def huffman_encode(text):
+        """
+        encode text to bits where most frequent characters get shortest bit length
+        for text length n and distinct characters d O(n + dlogd)
+        >>> Text.huffman_encode('a man, a plan, a canal, panama')
+        >>> Text.huffman_encode('yashaswita')
+        """
+        frequencies = Counter(text)
+        heap = [[weight, [symbol, '']] for symbol, weight in frequencies.most_common()]
+        heapq.heapify(heap)
+        while len(heap) > 1:
+            low = heapq.heappop(heap)
+            high = heapq.heappop(heap)
+            for pair in low[1:]:
+                pair[1] = '0' + pair[1]
+            for pair in high[1:]:
+                pair[1] = '1' + pair[1]
+            heapq.heappush(heap, [low[0] + high[0]] + low[1:] + high[1:])
+        return sorted(heapq.heappop(heap)[1:], key=lambda x: (len(x[-1]), x))

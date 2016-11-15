@@ -1,65 +1,64 @@
 """python implementaton of ADT Binary Search Tree"""
 
-class Node:
-    """
-    node to be used in Binary Search Tree implementation
-    """
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
+from Trees._binary_tree_abstract import BinaryTree
 
-    def add(self, value):
-        """
-        add value to correct place in tree
-        """
-        if value <= self.value:
-            self.left = self.add_to_subtree(self.left, value)
-        elif value > self.value:
-            self.right = self.add_to_subtree(self.right, value)
-
-    def add_to_subtree(self, parent, value):
-        """
-        helper method to add
-        """
-        if parent is None:
-            return Node(value)
-        parent.add(value)
-        return parent
-
-    def remove(self, value):
-        """
-        remove value from tree and correct subtree
-        """
-        if value < self.value:
-            self.left = self.remove_from_parent(self.left, value)
-        elif value > self.value:
-            self.right = self.remove_from_parent(self.right, value)
-        else:
-            if self.left is None:
-                return self.right
-            child = self.left
-            while child.right:
-                child = child.right
-            child_key = child.value
-            self.left = self.remove_from_parent(self.left, child_key)
-            self.value = child_key
-        return self
-
-    def remove_from_parent(self, parent, value):
-        """
-        helper method to remove
-        """
-        if parent:
-            return parent.remove(value)
-        return None
-
-class BinarySearchTree:
+class BinarySearchTree(BinaryTree):
     """
     implementing ADT Binary Search Tree
     """
-    def __init__(self):
-        self.root = None
+    class Node(BinaryTree.Node):
+        """
+        extend node for use in Binary Search Tree implementation
+        """
+        def add(self, value):
+            """
+            add value to correct place in tree O(logn)
+            """
+            if value <= self.value:
+                self.left = self.add_to_subtree(self.left, value)
+            elif value > self.value:
+                self.right = self.add_to_subtree(self.right, value)
+
+        def add_to_subtree(self, parent, value):
+            """
+            helper method to add
+            """
+            if parent is None:
+                return BinarySearchTree.Node(value)
+            parent.add(value)
+            return parent
+
+        def remove(self, value):
+            """
+            remove value from tree and correct subtree O(logn)
+            """
+            if value < self.value:
+                self.left = self.remove_from_parent(self.left, value)
+            elif value > self.value:
+                self.right = self.remove_from_parent(self.right, value)
+            else:
+                if self.left is None:
+                    return self.right
+                child = self.left
+                while child.right:
+                    child = child.right
+                child_key = child.value
+                self.left = self.remove_from_parent(self.left, child_key)
+                self.value = child_key
+            return self
+
+        def remove_from_parent(self, parent, value):
+            """
+            helper method to remove
+            """
+            if parent:
+                return parent.remove(value)
+            return None
+
+    def __len__(self):
+        if self.root is None:
+            raise ValueError("Binary Tree is empty")
+            
 
     def __contains__(self, value):
         """
@@ -75,14 +74,38 @@ class BinarySearchTree:
                 return True
         return False
 
+    def add_root(self, value):
+        """
+        add root node to tree O(1)
+        """
+        self.root = BinarySearchTree.Node(value)
+
     def add(self, value):
         """
         add value to tree O(log n)
         """
         if self.root is None:
-            self.root = Node(value)
+            self.root = BinarySearchTree.Node(value)
         else:
             self.root.add(value)
+
+    def left(self, p):
+        """
+        return left child of p O(1)
+        """
+        return p.left
+
+    def right(self, p):
+        """
+        return right child of p O(1)
+        """
+        return p.right
+
+    def parent(self, p):
+        pass
+
+    def num_children(self, p):
+        pass
 
     def remove(self, value):
         """
