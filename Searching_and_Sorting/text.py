@@ -1,4 +1,4 @@
-"""
+a"""
 python implementations of various text algorithms
 """
 

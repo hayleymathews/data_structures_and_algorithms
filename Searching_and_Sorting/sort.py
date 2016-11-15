@@ -4,6 +4,7 @@ python implementation of basic sort algorithms
 
 import random
 import heapq
+from collections import defaultdict
 
 class Sort:
     """
@@ -68,17 +69,18 @@ class Sort:
         """
         heapq.heapify(values)
         values[:] = [heapq.heappop(values) for x in range(len(values))]
+        return values
 
     @staticmethod
     def merge_sort(values):
         """
         divide list in 2(left, right) until each list is only 1 item long, and thus sorted
         then merge left and right together into a sorted list O(nlogn)
+        less preferred than heap and quick for arrays that can fit in main memory
+        works best for input in multiple locations
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.merge_sort(values)
         [1, 2, 3, 4, 5]
-        less preferred than heap and quick for arrays that can fit in main memory
-        works best for input in multiple locations
         """
         if len(values) <= 1:
             return values
@@ -104,10 +106,10 @@ class Sort:
         """
         pick pivot, put all items greater than pivot in larger, less than in smaller
         keep splitting until smaller and larger only 1 element, then combine O(nlogn)
+        faster than heap and merge sort most of the time, however, not stable
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.quick_sort(values)
         [1, 2, 3, 4, 5]
-        faster than heap and merge sort most of the time, however, not stable
         """
         if len(values) > 1:
             pivot = random.randint(0, len(values) - 1)
@@ -131,10 +133,10 @@ class Sort:
         then iterate through buckets and add to value
         must know range of values N in advance O(n+N) ~ O(n)
         works when N is less that nlogn
+        good for arrays with small integer keys, character strings, etc from a discrete range
         >>> values = [1, 4, 3, 2, 5]
         >>> Sort.bucket_sort(values, 6)
         [1, 2, 3, 4, 5]
-        good for arrays with small integer keys, character strings, etc from a discrete range
         """
         if len(values) == 0:
             return values
@@ -152,10 +154,10 @@ class Sort:
         """
         sort list of key, value pairs using bucket sort on value
         then bucket sort on first value O(n+N) ~ O(n)
+        good for tuples of keys from a discrete range
         >>> values = [[3, 3], [1, 5], [2, 5], [1, 2], [2, 3], [1, 7], [3, 2], [2, 2]]
         >>> Sort.radix_sort(values, 8)
         [[1, 2], [1, 5], [1, 7], [2, 2], [2, 3], [2, 5], [3, 2], [3, 3]]
-        good for tuples of keys from a discrete range
         """
         if len(values) == 0:
             return values
@@ -174,3 +176,16 @@ class Sort:
             while bucket:
                 values.append(bucket.pop())
         return values
+
+    def counting_sort(values, key=lambda x: x):
+        """
+        sorts list by counting items
+        >>> Sort.counting_sort([5, 3, 4, 1, 2])
+        [1, 2, 3, 4, 5]
+        """
+        result, counts = [], defaultdict(list)
+        for value in values:
+            counts[key(value)].append(value)
+        for index in range(min(counts), max(counts) + 1):
+            result.extend(counts[index])
+        return result
