@@ -189,3 +189,27 @@ class Sort:
         for index in range(min(counts), max(counts) + 1):
             result.extend(counts[index])
         return result
+
+    @staticmethod
+    def topological_sort(graph):
+        """
+        sort a DAG by finding vertices with no incoming edges and removing them
+        used for dependency management O(V + E)
+        >>> graph = {'A': ['B', 'D', 'E'], 'B' : ['C', 'D', 'E'], 'C': [], 'D' : ['C', 'E'], 'E': ['C']}
+        >>> Sort.topological_sort(graph)
+        ['A', 'B', 'D', 'E', 'C']
+        """
+        counts = {vertex: 0 for vertex in graph}
+        for vertex in graph:
+            for edge in graph[vertex]:
+                counts[edge] += 1
+        sources = [vertex for vertex in graph if counts[vertex] == 0]
+        result = []
+        while sources:
+            vertex = sources.pop()
+            result.append(vertex)
+            for edge in graph[vertex]:
+                counts[edge] -= 1
+                if counts[edge] == 0:
+                    sources.append(edge)
+        return result
