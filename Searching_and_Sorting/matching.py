@@ -2,7 +2,6 @@
 python implementation of basic matching algorithms
 """
 
-import copy
 
 class Match:
     """
@@ -26,7 +25,7 @@ class Match:
         True
         """
         engagements = {}
-        single_ladies = copy.deepcopy(women)
+        single_ladies = [woman for woman in women]
         while single_ladies:
             lady = single_ladies.pop()
             best_man = preferences[lady].pop(0)
